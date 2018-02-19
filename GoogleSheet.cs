@@ -9,11 +9,14 @@ using System.IO;
 using System.Threading;
 using HD;
 using System.Threading.Tasks;
+using Common.Logging;
 
 namespace HardlyDifficult.Google.Sheets
 {
   public class GoogleSheet
   {
+    static readonly ILog log = LogManager.GetLogger<GoogleSheet>();
+
     // If modifying these scopes, delete your previously saved credentials
     // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
     static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
@@ -86,8 +89,10 @@ namespace HardlyDifficult.Google.Sheets
           updateRequest.Execute();
           break;
         }
-        catch
+        catch(Exception e)
         {
+          log.Error(e);
+
           await Task.Delay(TimeSpan.FromSeconds(10));
         }
       }
@@ -109,8 +114,10 @@ namespace HardlyDifficult.Google.Sheets
           ValueRange response = request.Execute();
           return response.Values;
         }
-        catch
+        catch(Exception e)
         {
+          log.Error(e);
+
           await Task.Delay(TimeSpan.FromSeconds(10));
         }
       }
