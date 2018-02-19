@@ -91,7 +91,7 @@ namespace Crypnostic.GoogleSheetsExamples
       }
     }
 
-    internal async Task<IList<IList<object>>> Read(
+    public async Task<IList<IList<object>>> Read(
       string tab,
       string range)
     {
