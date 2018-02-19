@@ -10,30 +10,32 @@ using System.Threading;
 using HD;
 using System.Threading.Tasks;
 
-namespace Crypnostic.GoogleSheetsExamples
+namespace HardlyDifficult.Google.Sheets
 {
   public class GoogleSheet
   {
     // If modifying these scopes, delete your previously saved credentials
     // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
     static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
-    const string ApplicationName = "Crypnostic";
+
+    readonly string applicationName;
 
     readonly SheetsService service;
 
-
     readonly string spreadsheetId;
-
 
     /// <summary>
     /// From https://developers.google.com/sheets/api/limits
     /// </summary>
     readonly Throttle readThrottle = new Throttle(TimeSpan.FromSeconds(2*1));
+
     readonly Throttle writeThrottle = new Throttle(TimeSpan.FromSeconds(2*1));
 
     public GoogleSheet(
+      string applicationName,
       string spreadsheetId)
     {
+      this.applicationName = applicationName;
       this.spreadsheetId = spreadsheetId;
       UserCredential credential;
 
@@ -56,7 +58,7 @@ namespace Crypnostic.GoogleSheetsExamples
       service = new SheetsService(new BaseClientService.Initializer()
       {
         HttpClientInitializer = credential,
-        ApplicationName = ApplicationName,
+        ApplicationName = this.applicationName,
       });
     }
 
@@ -91,7 +93,7 @@ namespace Crypnostic.GoogleSheetsExamples
       }
     }
 
-    internal async Task<IList<IList<object>>> Read(
+    public async Task<IList<IList<object>>> Read(
       string tab,
       string range)
     {
