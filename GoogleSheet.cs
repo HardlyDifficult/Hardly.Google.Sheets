@@ -11,7 +11,7 @@ using HD;
 using System.Threading.Tasks;
 using Common.Logging;
 
-namespace HardlyDifficult.Google.Sheets
+namespace Hardly.Google.Sheets
 {
   public class GoogleSheet
   {
