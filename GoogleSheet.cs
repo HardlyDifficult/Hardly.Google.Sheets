@@ -30,9 +30,9 @@ namespace Hardly.Google.Sheets
     /// <summary>
     /// From https://developers.google.com/sheets/api/limits
     /// </summary>
-    readonly Throttle readThrottle = new Throttle(TimeSpan.FromSeconds(2*1));
+    readonly Throttle readThrottle = new Throttle(TimeSpan.FromSeconds(2*1),TimeSpan.FromMinutes(1));
 
-    readonly Throttle writeThrottle = new Throttle(TimeSpan.FromSeconds(2*1));
+    readonly Throttle writeThrottle = new Throttle(TimeSpan.FromSeconds(2*1), TimeSpan.FromMinutes(1));
 
     public GoogleSheet(
       string applicationName,
