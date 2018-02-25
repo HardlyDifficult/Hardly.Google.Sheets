@@ -86,7 +86,7 @@ namespace Hardly.Google.Sheets
         try
         {
           await writeThrottle.WaitTillReady();
-          updateRequest.Execute();
+          await updateRequest.ExecuteAsync();
           break;
         }
         catch(Exception e)
@@ -111,7 +111,7 @@ namespace Hardly.Google.Sheets
         try
         {
           await readThrottle.WaitTillReady();
-          ValueRange response = request.Execute();
+          ValueRange response = await request.ExecuteAsync();
           return response.Values;
         }
         catch(Exception e)
